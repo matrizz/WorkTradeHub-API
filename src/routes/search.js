@@ -1,11 +1,11 @@
-import express from "express";
-import prisma from "../models/Service.js";
+import express from "express"
+import prisma from "../models/Service.js"
 
-const router = express.Router();
+const router = express.Router()
 
 // Pesquisa de serviços com filtros
 router.get("/services", async (req, res) => {
-  const { location, category, priceRange, rating } = req.query;
+  const { location, category, priceRange, rating } = req.query
   try {
     const services = await prisma.findMany({
       where: {
@@ -18,11 +18,11 @@ router.get("/services", async (req, res) => {
           rating ? { rating: { gte: rating } } : {},
         ],
       },
-    });
-    res.status(200).json(services);
+    })
+    res.status(200).json(services)
   } catch (err) {
-    res.status(500).json({ msg: "Erro no servidor" });
+    res.status(500).json({ msg: "Erro no servidor" })
   }
-});
+})
 
-export default router;
+export default router

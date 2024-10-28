@@ -1,12 +1,12 @@
-import express from "express";
-import prisma from "../models/Review.js";
-import authMiddleware from "../middleware/auth.js";
+import express from "express"
+import prisma from "../models/Review.js"
+import authMiddleware from "../middleware/auth.js"
 
-const router = express.Router();
+const router = express.Router()
 
 // Criar nova avaliação
 router.post("/", authMiddleware, async (req, res) => {
-  const { providerId, serviceId, rating, comment } = req.body;
+  const { providerId, serviceId, rating, comment } = req.body
   try {
     const review = await prisma.create({
       data: {
@@ -16,21 +16,21 @@ router.post("/", authMiddleware, async (req, res) => {
         rating,
         comment,
       },
-    });
-    res.status(201).json(review);
+    })
+    res.status(201).json(review)
   } catch (err) {
-    res.status(500).json({ msg: "Erro no servidor" });
+    res.status(500).json({ msg: "Erro no servidor" })
   }
-});
+})
 
 // Buscar avaliações
 router.get("/", async (req, res) => {
   try {
-    const reviews = await prisma.findMany();
-    res.status(200).json(reviews);
+    const reviews = await prisma.findMany()
+    res.status(200).json(reviews)
   } catch (err) {
-    res.status(500).json({ msg: "Erro no servidor" });
+    res.status(500).json({ msg: "Erro no servidor" })
   }
-});
+})
 
-export default router;
+export default router
